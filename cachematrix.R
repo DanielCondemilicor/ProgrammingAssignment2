@@ -3,48 +3,33 @@
 
 ## makeCacheMatrix is a function that caches the matrix with the use of closure functions (<<-)
 ## just like the cache vector example. 
-##this sets teh value of matrix
-## get value of matrix
-## set the value of inverse
-## and get the value of the inverse
+
+##this function creates an environment and calls it for the other function :cacheSolve() to use.
+
 
 makeCacheMatrix <- function(x = matrix()) {
-  inv <- NULL ##inv is a emptyy vector
+  inv <- NULL 
   
-  ##collects data from matrix???
-  set <-function(y){ 
-    x <<- y 
-    inv<<- NULL
+  set <-function(a){ x <<- a
+  inv<<- NULL
   }
-  
-  ##
-  get <- function() x 
+  get <- function() x #first class function that calls the given matrix
   setinv <- function(inverse) inv <<- inverse
-  getinv <- function() inv
-  ##
+  getinv <- function() inv #first class function that calls inv
   
-  list(set = set,
-       get = get,
-       setinv = setinv,
-       getinv = getinv)
+  ##
+  list(set=set, setinv=setinv, getinv = getinv, get = get)
+  
 }
 
 
 ## this function grabs the first class functions in the "cached matrix" data 
 ## and solves its inverse
 
-cacheSolve <- function(x, ...) {
-  inv <- x$getinv()
-  if(!is.null(inv)){ 
-        message("grabbing that very delicious cached data :)")
-        return(inv)
-  }
-  
-  ##
-  mat <- x$get()
-  inv <- solve(mat, ...)
-  x$setinv(inv)
-  inv
-  ##
-        ## Return a matrix that is the inverse of 'x'
+cacheSolve <- function(a, ...) {
+  matrix <- a$get()
+  inverse <- a$getinv()
+  inverse <- solve(matrix, ...)
+  a$setinv(inverse)
+  inverse
 }
