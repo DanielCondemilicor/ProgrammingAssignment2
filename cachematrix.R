@@ -4,8 +4,7 @@
 ## makeCacheMatrix is a function that caches the matrix with the use of closure functions (<<-)
 ## just like the cache vector example. 
 
-##this function creates an environment and calls it for the other function :cacheSolve() to use.
-
+##this function creates an environment and calls it for the other function "cacheSolve()" to use.
 
 makeCacheMatrix <- function(x = matrix()) {
   inv <- NULL 
@@ -13,8 +12,11 @@ makeCacheMatrix <- function(x = matrix()) {
   set <-function(a){ x <<- a
   inv<<- NULL
   }
+  
   get <- function() x #first class function that calls the given matrix
+  
   setinv <- function(inverse) inv <<- inverse
+  
   getinv <- function() inv #first class function that calls inv
   
   ##
